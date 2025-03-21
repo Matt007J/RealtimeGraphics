@@ -22,11 +22,11 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{29b5baed-3895-47a2-a78d-aaf45a6989c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene Header Files">
-      <UniqueIdentifier>{e0efeabd-2890-473e-beb4-d01a8fd6cc31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene Source Files">
       <UniqueIdentifier>{935930dd-f970-454b-8c32-e0fb8f9af4eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Scene Header Files">
+      <UniqueIdentifier>{e0efeabd-2890-473e-beb4-d01a8fd6cc31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,55 +67,55 @@
       <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CameraFactory.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LightFactory.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="helper.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stringHelp.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ModelFactory.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AIModel.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExampleGO.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderPass.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DirectionLight.h">
-      <Filter>Scene Header Files</Filter>
+      <Filter>Resource Files\Scene Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
