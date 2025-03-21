@@ -339,3 +339,19 @@ void Scene::Init()
 		(*it)->Init(this);
 	}
 }
+void Scene::setupCamera()
+{
+	m_useCameraIndex++;
+
+	if (m_useCameraIndex == m_numCameras)
+	{
+		m_useCameraIndex = 0;
+	}
+	list<Camera*>::iterator it = m_Cameras.begin();
+
+	for (int i = 0; i < m_useCameraIndex; i++)
+	{
+		++it;
+	}
+	m_useCamera = (*it);
+}
