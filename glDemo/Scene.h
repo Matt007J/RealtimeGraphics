@@ -49,6 +49,16 @@ public:
 
 	void setupCamera();
 
+	void setupMovement();
+
+	void MoveForward();
+	void MoveBackward();
+	void MoveLeft();
+	void MoveRight();
+	glm::vec3 position;      // Object or camera position
+	glm::vec3 direction;     // Forward movement direction
+	float movementSpeed;
+
 protected:
 
 	//data structures containing pointers to all our stuff

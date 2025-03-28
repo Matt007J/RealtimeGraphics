@@ -355,6 +355,23 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 
 		case GLFW_KEY_K:
 			g_Scene->setupCamera();
+			break;
+
+		 //Camera movement keys - not currently used
+		case GLFW_KEY_W:        
+			g_Scene->MoveForward();
+			break;	
+		case GLFW_KEY_S:
+			g_Scene->MoveBackward();
+			break;
+		case GLFW_KEY_A:
+			g_Scene->MoveLeft();
+			break;
+		case GLFW_KEY_D:
+			g_Scene->MoveRight();
+			break;
+			
+
 
 		default:
 		{

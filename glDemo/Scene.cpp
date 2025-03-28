@@ -10,6 +10,7 @@
 #include "Shader.h"
 #include "GameObjectFactory.h"
 #include <assert.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 Scene::Scene()
 {
@@ -355,3 +356,27 @@ void Scene::setupCamera()
 	}
 	m_useCamera = (*it);
 }
+
+void Scene::setupMovement()
+{
+	movementSpeed = 0.1f;  // Adjust speed as needed
+	position = glm::vec3(0.0f, 0.0f, 0.0f);  // Initial position
+	direction = glm::vec3(0.0f, 0.0f, -1.0f); // Forward direction
+}
+
+void Scene::MoveForward() {
+	position += direction * movementSpeed;
+}
+
+void Scene::MoveBackward() {
+	position -= direction * movementSpeed;
+}
+
+void Scene::MoveLeft() {
+	position -= glm::normalize(glm::cross(direction, glm::vec3(0.0f, 1.0f, 0.0f))) * movementSpeed;
+}
+
+void Scene::MoveRight() {
+	position += glm::normalize(glm::cross(direction, glm::vec3(0.0f, 1.0f, 0.0f))) * movementSpeed;
+}
+
