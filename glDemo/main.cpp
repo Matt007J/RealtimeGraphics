@@ -41,8 +41,11 @@ vec3 g_beastPos = vec3(2.0f, 0.0f, 0.0f);
 float g_beastRotation = 0.0f;
 AIMesh* g_planetMesh = nullptr;
 AIMesh* g_DuckMesh = nullptr;
+AIMesh* g_wallMesh = nullptr;
 vec3 g_DuckPos = vec3(8.0f, 8.0f, 8.0f);
+vec3 g_wallPos = vec3(6.0f, 6.0f, 6.0f);
 
+float g_wallRotation = 0.0f;
 float g_DuckRotation = 0.0f;
 int g_showing = 0;
 int g_NumExamples = 3;
@@ -155,6 +158,10 @@ int main()
 	if (g_DuckMesh) {
 		g_DuckMesh->addTexture(string("Assets\\duck\\rubber_duck_toy_diff_4k.jpg"), FIF_JPEG);
 	}
+	g_wallMesh = new AIMesh(string("Assets\\Wall\\cube.obj"));
+	if (g_wallMesh) {
+		g_wallMesh->addTexture(string("Assets\\Wall\\Dungeon_brick_wall.bmp"), FIF_BMP);
+	}
 	//
 	//Set up Scene class
 	//
@@ -256,6 +263,17 @@ void renderScene()
 
 			g_creatureMesh->setupTextures();
 			g_creatureMesh->render();
+		}
+
+		if (g_wallMesh) {
+
+			// Setup transforms
+			Helper::SetUniformLocation(g_texDirLightShader, "modelMatrix", &pLocation);
+			mat4 modelTransform = glm::translate(identity<mat4>(), g_wallPos) * eulerAngleY<float>(glm::radians<float>(g_wallRotation));
+			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
+
+			g_wallMesh->setupTextures();
+			g_wallMesh->render();
 		}
 
 		if (g_planetMesh) {

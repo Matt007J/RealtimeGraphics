@@ -190,11 +190,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="manifest.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Assets\Shaders\texture-directional.frag">
       <Filter>Shaders</Filter>
     </None>
@@ -207,5 +202,10 @@
     <None Include="Assets\Shaders\flatColour.vert">
       <Filter>Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="manifest.txt">
+      <Filter>Resource Files\Scene Header Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

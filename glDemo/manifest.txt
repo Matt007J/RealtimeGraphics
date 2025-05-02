@@ -74,7 +74,7 @@ AMB: 0.2 0.2 0.2
 DIR: 0.0 1.0 0.0
 }
 
-MODELS 3
+MODELS 4
 {
 TYPE: AI
 NAME: BEAST
@@ -90,12 +90,22 @@ TYPE: AI
 NAME: SPHERE
 FILE: Assets\\gsphere.obj
 }
+{
+TYPE: AI
+NAME: WALL
+FILE: Assets\\Wall\\Cube1.obj
+}
 
-TEXTURES 6
+TEXTURES 7
 {
 TYPE: FIF_BMP
 NAME: BEAST
 FILE: Assets\\beast\\beast_texture.bmp
+}
+{
+TYPE: FIF_BMP
+NAME: WALL
+FILE: Assets\\Wall\\Dungeon_brick_wall.bmp
 }
 {
 TYPE: FIF_JPEG
@@ -135,7 +145,7 @@ VERTFILE: Assets\\Shaders\\texture-directional.vert
 FRAGFILE: Assets\\Shaders\\texture-directional.frag
 }
 
-GAMEOBJECTS 3
+GAMEOBJECTS 4
 {
 TYPE: EXAMPLE
 NAME: BEAST
@@ -167,5 +177,16 @@ SCALE: 1.0 1.0 1.0
 ROTINC: 0.0 0.2 0.0
 MODEL: SPHERE
 TEXTURE: ROCK
+SHADER: TEXDIR
+}
+{
+TYPE: EXAMPLE
+NAME: WALL
+POS: 0.0 0.0 0.0
+ROT: 0.0 0.0 0.0
+SCALE: 11.0 11.0 11.0
+ROTINC: 0.0 0.1 0.001
+MODEL: WALL
+TEXTURE: WALL
 SHADER: TEXDIR
 }
