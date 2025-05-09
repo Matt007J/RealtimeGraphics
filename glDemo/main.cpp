@@ -44,9 +44,12 @@ AIMesh* g_DuckMesh = nullptr;
 AIMesh* g_wallMesh = nullptr;
 vec3 g_DuckPos = vec3(8.0f, 8.0f, 8.0f);
 vec3 g_wallPos = vec3(6.0f, 6.0f, 6.0f);
+AIMesh* g_GhostMesh = nullptr;
+vec3 g_GhostPos = vec3(2.0f, 0.0f, 0.0f);
 
 float g_wallRotation = 0.0f;
 float g_DuckRotation = 0.0f;
+float g_GhostRotation = 0.0f;
 int g_showing = 0;
 int g_NumExamples = 3;
 
@@ -132,6 +135,9 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//
 	// Setup the Example Objects
 	//
@@ -162,6 +168,14 @@ int main()
 	if (g_wallMesh) {
 		g_wallMesh->addTexture(string("Assets\\Wall\\Dungeon_brick_wall.bmp"), FIF_BMP);
 	}
+	g_GhostMesh = new AIMesh(string("Assets\\Ghost\\Ghost.obj"));
+	if (g_GhostMesh) {
+		g_GhostMesh->addTexture(string("Assets\\Ghost\\GhostTexture.bmp"), FIF_BMP);
+	}
+	
+
+
+
 	//
 	//Set up Scene class
 	//
@@ -296,6 +310,22 @@ void renderScene()
 
 			g_DuckMesh->setupTextures();
 			g_DuckMesh->render();
+		}
+		if (g_GhostMesh) {
+			// Enable blending for transparency
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+			// Setup transforms
+			Helper::SetUniformLocation(g_texDirLightShader, "modelMatrix", &pLocation);
+			mat4 modelTransform = glm::translate(identity<mat4>(), g_GhostPos) * eulerAngleY<float>(glm::radians<float>(g_GhostRotation));
+			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
+
+			g_GhostMesh->setupTextures();
+			g_GhostMesh->render();
+
+			// Disable blending after rendering
+			glDisable(GL_BLEND);
 		}
 	}
 	break;

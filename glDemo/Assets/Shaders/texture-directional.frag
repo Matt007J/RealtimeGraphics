@@ -32,6 +32,10 @@ void main(void) {
 	vec4 surfaceColour = texture2D(texture, inputFragment.texCoord);
 	vec3 diffuseColour = surfaceColour.rgb * DIRCol * l;
 
-	fragColour = vec4(DIRAmb,1.0)+vec4(diffuseColour, 1.0);
-	//fragColour = vec4(vec3(l, l, l), 1.0);
+	// Set the alpha value for transparency (e.g., 0.5 for 50% transparency)
+	float alpha = 0.5;
+
+	// Combine ambient and diffuse components with transparency
+	fragColour = vec4(DIRAmb, 0.01) + vec4(diffuseColour, alpha);
 }
+

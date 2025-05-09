@@ -74,7 +74,7 @@ AMB: 0.2 0.2 0.2
 DIR: 0.0 1.0 0.0
 }
 
-MODELS 4
+MODELS 5
 {
 TYPE: AI
 NAME: BEAST
@@ -95,8 +95,13 @@ TYPE: AI
 NAME: WALL
 FILE: Assets\\Wall\\Cube1.obj
 }
+{
+TYPE: AI
+NAME: Ghost
+FILE: Assets\\Ghost\\Ghost.obj
+}
 
-TEXTURES 7
+TEXTURES 8
 {
 TYPE: FIF_BMP
 NAME: BEAST
@@ -132,6 +137,11 @@ TYPE: FIF_JPEG
 NAME: STARS2
 FILE: Assets\\Textures\\stars2.jpg
 }
+{
+TYPE: FIF_BMP
+NAME: Ghost
+FILE: Assets\\Ghost\\GhostTexture.bmp
+}
 
 SHADERS 2
 {
@@ -145,7 +155,8 @@ VERTFILE: Assets\\Shaders\\texture-directional.vert
 FRAGFILE: Assets\\Shaders\\texture-directional.frag
 }
 
-GAMEOBJECTS 4
+
+GAMEOBJECTS 5
 {
 TYPE: EXAMPLE
 NAME: BEAST
@@ -184,9 +195,20 @@ TYPE: EXAMPLE
 NAME: WALL
 POS: 0.0 0.0 0.0
 ROT: 0.0 0.0 0.0
-SCALE: 11.0 11.0 11.0
-ROTINC: 0.0 0.1 0.001
+SCALE: 1.4 0.2 1.5
+ROTINC: 0.0 0.0 0.0
 MODEL: WALL
 TEXTURE: WALL
+SHADER: TEXDIR
+}
+{
+TYPE: EXAMPLE
+NAME: Ghost
+POS: 0.0 0.0 0.0
+ROT: 0.0 0.0 0.0
+SCALE: 0.2 0.5 0.2
+ROTINC: 0.0 0.0 0.0
+MODEL: Ghost
+TEXTURE: Ghost
 SHADER: TEXDIR
 }
