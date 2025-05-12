@@ -359,24 +359,38 @@ void Scene::setupCamera()
 
 void Scene::setupMovement()
 {
-	movementSpeed = 0.1f;  // Adjust speed as needed
+	movementSpeed = 10.1f;  // Adjust speed as needed
 	position = glm::vec3(0.0f, 0.0f, 0.0f);  // Initial position
 	direction = glm::vec3(0.0f, 0.0f, -1.0f); // Forward direction
 }
 
-void Scene::MoveForward() {
-	position += direction * movementSpeed;
+void Scene::MoveCameraForward(float deltaTime) {
+    if (m_useCamera) {
+        m_useCamera->MoveForward(deltaTime);
+    }
 }
 
-void Scene::MoveBackward() {
-	position -= direction * movementSpeed;
+void Scene::MoveCameraBackward(float deltaTime) {
+    if (m_useCamera) {
+        m_useCamera->MoveBackward(deltaTime);
+    }
 }
 
-void Scene::MoveLeft() {
-	position -= glm::normalize(glm::cross(direction, glm::vec3(0.0f, 1.0f, 0.0f))) * movementSpeed;
+void Scene::MoveCameraLeft(float deltaTime) {
+    if (m_useCamera) {
+        m_useCamera->MoveLeft(deltaTime);
+    }
 }
 
-void Scene::MoveRight() {
-	position += glm::normalize(glm::cross(direction, glm::vec3(0.0f, 1.0f, 0.0f))) * movementSpeed;
+void Scene::MoveCameraRight(float deltaTime) {
+    if (m_useCamera) {
+        m_useCamera->MoveRight(deltaTime);
+    }
+}
+
+void Scene::RotateCamera(float xOffset, float yOffset) {
+    if (m_useCamera) {
+        m_useCamera->Rotate(xOffset, yOffset);
+    }
 }
 

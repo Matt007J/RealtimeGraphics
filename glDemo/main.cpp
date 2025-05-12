@@ -387,11 +387,12 @@ void resizeWindow(GLFWwindow* _window, int _width, int _height)
 // Function to call to handle keyboard input
 void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, int _mods)
 {
-	if (_action == GLFW_PRESS) {
+	if (_action == GLFW_PRESS || _action == GLFW_REPEAT) {
+		// Get the time delta for smooth movement
+		float deltaTime = g_gameClock->gameTimeDelta();
 
-		// check which key was pressed...
-		switch (_key)
-		{
+		// Check which key was pressed
+		switch (_key) {
 		case GLFW_KEY_ESCAPE:
 			glfwSetWindowShouldClose(_window, true);
 			break;
@@ -405,56 +406,56 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 			g_Scene->setupCamera();
 			break;
 
-		 //Camera movement keys - not currently used
-		case GLFW_KEY_W:        
-			g_Scene->MoveForward();
-			break;	
+			// Camera movement keys
+		case GLFW_KEY_W:
+			g_Scene->MoveCameraForward(deltaTime);
+			break;
+
 		case GLFW_KEY_S:
-			g_Scene->MoveBackward();
+			g_Scene->MoveCameraBackward(deltaTime);
 			break;
+
 		case GLFW_KEY_A:
-			g_Scene->MoveLeft();
+			g_Scene->MoveCameraLeft(deltaTime);
 			break;
+
 		case GLFW_KEY_D:
-			g_Scene->MoveRight();
+			g_Scene->MoveCameraRight(deltaTime);
 			break;
-			
-
 
 		default:
-		{
-		}
-		}
-	}
-	else if (_action == GLFW_RELEASE) 
-	{
-		// handle key release events
-		switch (_key)
-		{
-		default:
-		{
-		}
+			break;
 		}
 	}
 }
 
 
-void mouseMoveHandler(GLFWwindow* _window, double _xpos, double _ypos) 
+
+void mouseMoveHandler(GLFWwindow* _window, double _xpos, double _ypos)
 {
-	if (g_mouseDown) {
+	static bool firstMouse = true;
 
-		//float tDelta = gameClock->gameTimeDelta();
-
-		float dx = float(_xpos - g_prevMouseX);// *360.0f * tDelta;
-		float dy = float(_ypos - g_prevMouseY);// *360.0f * tDelta;
-
-		if (g_mainCamera)
-			g_mainCamera->rotateCamera(-dy, -dx);
-
+	// Handle the first mouse movement to avoid large jumps
+	if (firstMouse) {
 		g_prevMouseX = _xpos;
 		g_prevMouseY = _ypos;
+		firstMouse = false;
+	}
+
+	// Calculate the offset in mouse movement
+	float dx = float(_xpos - g_prevMouseX);
+	float dy = float(g_prevMouseY - _ypos); // Reversed since y-coordinates go from bottom to top
+
+	// Update the previous mouse position
+	g_prevMouseX = _xpos;
+	g_prevMouseY = _ypos;
+
+	// Rotate the active camera in the scene
+	if (g_Scene && g_Scene->m_useCamera) {
+		g_Scene->RotateCamera(dx, dy);
 	}
 }
+
 
 void mouseButtonHandler(GLFWwindow* _window, int _button, int _action, int _mods) 
 {

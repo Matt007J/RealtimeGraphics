@@ -51,16 +51,20 @@ public:
 
 	void setupMovement();
 
-	void MoveForward();
-	void MoveBackward();
-	void MoveLeft();
-	void MoveRight();
+	void MoveCameraForward(float deltaTime);
+	void MoveCameraBackward(float deltaTime);
+	void MoveCameraLeft(float deltaTime);
+	void MoveCameraRight(float deltaTime);
+	void RotateCamera(float _x, float _y);
 	glm::vec3 position;      // Object or camera position
 	glm::vec3 direction;     // Forward movement direction
 	float movementSpeed;
 
 protected:
-
+    public:
+        Camera* GetActiveCamera() const {
+            return m_useCamera;
+        }
 	//data structures containing pointers to all our stuff
 	int m_numCameras = 0;
 	int m_numLights = 0;
