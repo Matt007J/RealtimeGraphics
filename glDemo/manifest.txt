@@ -74,7 +74,7 @@ AMB: 0.2 0.2 0.2
 DIR: 0.0 1.0 0.0
 }
 
-MODELS 5
+MODELS 6
 {
 TYPE: AI
 NAME: BEAST
@@ -100,8 +100,13 @@ TYPE: AI
 NAME: Ghost
 FILE: Assets\\Ghost\\Ghost.obj
 }
+{
+TYPE: AI
+NAME: Crystal
+FILE: Assets\\Crystal\\Crystal.obj
+}
 
-TEXTURES 8
+TEXTURES 10
 {
 TYPE: FIF_BMP
 NAME: BEAST
@@ -142,8 +147,18 @@ TYPE: FIF_BMP
 NAME: Ghost
 FILE: Assets\\Ghost\\GhostTexture.bmp
 }
+{
+TYPE: FIF_BMP
+NAME: Crystal
+FILE: Assets\\Crystal\\Crystal1.bmp
+}
+{
+TYPE: FIF_BMP
+NAME: WALL
+FILE: Assets\\Wall\\Dungeon_brick_wall_blue1.bmp
+}
 
-SHADERS 2
+SHADERS 3
 {
 NAME: FLAT
 VERTFILE: Assets\\Shaders\\flatColour.vert
@@ -154,16 +169,21 @@ NAME: TEXDIR
 VERTFILE: Assets\\Shaders\\texture-directional.vert
 FRAGFILE: Assets\\Shaders\\texture-directional.frag
 }
+{
+NAME: emissive
+VERTFILE: Assets\\Shaders\\emissive.vert
+FRAGFILE: Assets\\Shaders\\emissive.frag
+}
 
 
-GAMEOBJECTS 5
+GAMEOBJECTS 10
 {
 TYPE: EXAMPLE
 NAME: BEAST
-POS: 0.0 0.0 0.0
+POS: 1.0 1.3 0.0
 ROT: 0.0 0.0 0.0
 SCALE: 1.0 1.0 1.0
-ROTINC: 0.0 0.1 0.001
+ROTINC: 0.0 0.0 0.0
 MODEL: BEAST
 TEXTURE: BEAST
 SHADER: TEXDIR
@@ -195,7 +215,7 @@ TYPE: EXAMPLE
 NAME: WALL
 POS: 0.0 0.0 0.0
 ROT: 0.0 0.0 0.0
-SCALE: 1.4 0.2 1.5
+SCALE: 12.4 0.2 12.5
 ROTINC: 0.0 0.0 0.0
 MODEL: WALL
 TEXTURE: WALL
@@ -210,5 +230,60 @@ SCALE: 0.2 0.5 0.2
 ROTINC: 0.0 0.0 0.0
 MODEL: Ghost
 TEXTURE: Ghost
+SHADER: TEXDIR
+}
+{
+TYPE: EXAMPLE
+NAME: Crystal
+POS: 2.0 1.3 0.0
+ROT: 0.0 0.0 0.0
+SCALE: 0.2 0.5 0.2
+ROTINC: 0.0 0.0 0.0
+MODEL: Crystal
+TEXTURE: Crystal
+SHADER: TEXDIR
+}
+{
+TYPE: EXAMPLE
+NAME: FRONT_WALL
+POS: 0.0 1.0 12.8
+ROT: 0.0 0.0 0.0
+SCALE: 12.4 1.6 0.2
+ROTINC: 0.0 0.0 0.0
+MODEL: WALL
+TEXTURE: WALL
+SHADER: TEXDIR
+}
+{
+TYPE: EXAMPLE
+NAME: BACK_WALL
+POS: 0.0 1.0 -12.8
+ROT: 0.0 0.0 0.0
+SCALE: 12.4 1.6 0.2
+ROTINC: 0.0 0.0 0.0
+MODEL: WALL
+TEXTURE: WALL
+SHADER: TEXDIR
+}
+{
+TYPE: EXAMPLE
+NAME: LEFT_WALL
+POS: -12.8 1.0 0.0
+ROT: 0.0 0.0 0.0
+SCALE: 0.2 1.6 12.5
+ROTINC: 0.0 0.0 0.0
+MODEL: WALL
+TEXTURE: WALL
+SHADER: TEXDIR
+}
+{
+TYPE: EXAMPLE
+NAME: RIGHT_WALL
+POS: 12.8 1.0 0.0
+ROT: 0.0 0.0 0.0
+SCALE: 0.2 1.6 12.5
+ROTINC: 0.0 0.0 0.0
+MODEL: WALL
+TEXTURE: WALL
 SHADER: TEXDIR
 }

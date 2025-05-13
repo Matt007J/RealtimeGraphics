@@ -202,6 +202,12 @@
     <None Include="Assets\Shaders\flatColour.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="emissive.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="emissive.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="manifest.txt">

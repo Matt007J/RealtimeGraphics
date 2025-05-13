@@ -30,6 +30,8 @@ CGPrincipleAxes* g_principleAxes = nullptr;
 Cube* g_cube = nullptr;
 
 GLuint g_flatColourShader;
+GLuint g_emissiveShader; // Global variable for the emissive shader
+
 
 GLuint g_texDirLightShader;
 vec3 g_DLdirection = vec3(0.0f, 1.0f, 0.0f);
@@ -44,14 +46,23 @@ AIMesh* g_DuckMesh = nullptr;
 AIMesh* g_wallMesh = nullptr;
 vec3 g_DuckPos = vec3(8.0f, 8.0f, 8.0f);
 vec3 g_wallPos = vec3(6.0f, 6.0f, 6.0f);
+
 AIMesh* g_GhostMesh = nullptr;
 vec3 g_GhostPos = vec3(2.0f, 0.0f, 0.0f);
+AIMesh* g_CrystalMesh = nullptr;
+vec3 g_CrystalPos = vec3(2.0f, 0.0f, 0.0f);
+
 
 float g_wallRotation = 0.0f;
 float g_DuckRotation = 0.0f;
 float g_GhostRotation = 0.0f;
+float g_CrystalRotation = 0.0f;
 int g_showing = 0;
-int g_NumExamples = 3;
+int g_NumExamples = 2;
+
+
+// Global variable to track crystal glow state
+bool g_CrystalGlow = false; // Tracks whether the crystal is glowing
 
 //Global Game Object
 Scene* g_Scene = nullptr;
@@ -142,6 +153,7 @@ int main()
 	// Setup the Example Objects
 	//
 
+
 	g_texDirLightShader = setupShaders(string("Assets\\Shaders\\texture-directional.vert"), string("Assets\\Shaders\\texture-directional.frag"));
 	g_flatColourShader = setupShaders(string("Assets\\Shaders\\flatColour.vert"), string("Assets\\Shaders\\flatColour.frag"));
 
@@ -172,7 +184,15 @@ int main()
 	if (g_GhostMesh) {
 		g_GhostMesh->addTexture(string("Assets\\Ghost\\GhostTexture.bmp"), FIF_BMP);
 	}
-	
+	g_CrystalMesh = new AIMesh(string("Assets\\Crystal\\Crystal.obj"));
+	if (g_CrystalMesh) {
+		g_CrystalMesh->addTexture(string("Assets\\Crystal\\Crystal1.bmp"), FIF_BMP);
+	}
+	g_emissiveShader = setupShaders(
+
+		string("Assets\\Shaders\\emissive.vert"),
+		string("Assets\\Shaders\\emissive.frag")
+	);
 
 
 
@@ -227,6 +247,7 @@ void renderScene()
 	// Clear the rendering window
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    bool g_CrystalGlow = false; // Tracks whether the crystal is glowing
 	mat4 cameraTransform = g_mainCamera->projectionTransform() * g_mainCamera->viewTransform();
 
 	mat4 cameraProjection = g_mainCamera->projectionTransform();
@@ -327,10 +348,54 @@ void renderScene()
 			// Disable blending after rendering
 			glDisable(GL_BLEND);
 		}
+		if (g_CrystalMesh) {
+			if (g_CrystalGlow) {
+				// Use emissive shader for glowing effect
+				glUseProgram(g_emissiveShader);
+
+				GLint pLocation;
+				Helper::SetUniformLocation(g_emissiveShader, "viewMatrix", &pLocation);
+				glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraView);
+				Helper::SetUniformLocation(g_emissiveShader, "projMatrix", &pLocation);
+				glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraProjection);
+				Helper::SetUniformLocation(g_emissiveShader, "modelMatrix", &pLocation);
+				mat4 modelTransform = glm::translate(identity<mat4>(), g_CrystalPos) * eulerAngleY<float>(glm::radians<float>(g_CrystalRotation));
+				glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
+
+				// Set emissive properties
+				vec3 emissiveColor = vec3(0.5f, 0.8f, 1.0f); // Light blue glow
+				float emissiveStrength = 1.5f; // Adjust strength as needed
+				Helper::SetUniformLocation(g_emissiveShader, "emissiveColor", &pLocation);
+				glUniform3fv(pLocation, 1, (GLfloat*)&emissiveColor);
+				Helper::SetUniformLocation(g_emissiveShader, "emissiveStrength", &pLocation);
+				glUniform1f(pLocation, emissiveStrength);
+
+				g_CrystalMesh->setupTextures();
+				g_CrystalMesh->render();
+			}
+			else {
+				// Use regular shader for non-glowing effect
+				glUseProgram(g_texDirLightShader);
+
+				GLint pLocation;
+				Helper::SetUniformLocation(g_texDirLightShader, "viewMatrix", &pLocation);
+				glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraView);
+				Helper::SetUniformLocation(g_texDirLightShader, "projMatrix", &pLocation);
+				glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraProjection);
+				Helper::SetUniformLocation(g_texDirLightShader, "modelMatrix", &pLocation);
+				mat4 modelTransform = glm::translate(identity<mat4>(), g_CrystalPos) * eulerAngleY<float>(glm::radians<float>(g_CrystalRotation));
+				glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
+
+				g_CrystalMesh->setupTextures();
+				g_CrystalMesh->render();
+			}
+		}
+
+
 	}
 	break;
 
-	case 1:
+	/*case 1:
 	{
 		// Render cube 
 		glUseProgram(g_flatColourShader);
@@ -345,8 +410,8 @@ void renderScene()
 
 		g_cube->render();
 		break;
-	}
-	case 2:
+	}*/
+	case 1:
 		g_Scene->Render();
 	}
 
@@ -405,6 +470,11 @@ void keyboardHandler(GLFWwindow* _window, int _key, int _scancode, int _action, 
 		case GLFW_KEY_K:
 			g_Scene->setupCamera();
 			break;
+
+		case GLFW_KEY_L:
+			g_CrystalGlow = !g_CrystalGlow; // Toggle the glow state
+			break;
+
 
 			// Camera movement keys
 		case GLFW_KEY_W:
