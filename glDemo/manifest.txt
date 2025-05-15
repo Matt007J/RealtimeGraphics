@@ -2,9 +2,9 @@ CAMERAS 4
 {
 TYPE: CAMERA
 NAME: CAM1
-POS:  5.0 5.0 0.0
+POS:  15.0 15.0 0.0
 LOOKAT: 0.0 0.0 0.0
-FOV: 45.0
+FOV: 100.0
 NEAR: 0.5
 FAR 100.0
 }
@@ -20,8 +20,8 @@ FAR 100.0
 {
 TYPE: CAMERA
 NAME: CAM3
-POS:  5.0 5.0 5.0
-LOOKAT: -4.0 4.0 4.0
+POS:  0.0 20.0 20.0
+LOOKAT: 0.0 0.0 0.0
 FOV: 45.0
 NEAR: 0.5
 FAR 100.0
@@ -29,7 +29,7 @@ FAR 100.0
 {
 TYPE: CAMERA
 NAME: CAM4
-POS:  0.0 5.0 -5.0
+POS:  0.0 5.0 5.0
 LOOKAT: 0.0 0.0 0.0
 FOV: 45.0
 NEAR: 0.5
@@ -74,16 +74,11 @@ AMB: 0.2 0.2 0.2
 DIR: 0.0 1.0 0.0
 }
 
-MODELS 6
+MODELS 5
 {
 TYPE: AI
 NAME: BEAST
 FILE: Assets\\beast\\beast.obj
-}
-{
-TYPE: AI
-NAME: DUCK
-FILE: Assets\\duck\\rubber_duck_toy_4k.obj
 }
 {
 TYPE: AI
@@ -106,7 +101,7 @@ NAME: Crystal
 FILE: Assets\\Crystal\\Crystal.obj
 }
 
-TEXTURES 10
+TEXTURES 9
 {
 TYPE: FIF_BMP
 NAME: BEAST
@@ -116,11 +111,6 @@ FILE: Assets\\beast\\beast_texture.bmp
 TYPE: FIF_BMP
 NAME: WALL
 FILE: Assets\\Wall\\Dungeon_brick_wall.bmp
-}
-{
-TYPE: FIF_JPEG
-NAME: DUCK
-FILE: Assets\\duck\\rubber_duck_toy_diff_4k.jpg
 }
 {
 TYPE: FIF_JPEG
@@ -176,11 +166,11 @@ FRAGFILE: Assets\\Shaders\\emissive.frag
 }
 
 
-GAMEOBJECTS 10
+GAMEOBJECTS 9
 {
 TYPE: EXAMPLE
 NAME: BEAST
-POS: 1.0 1.3 0.0
+POS: 1.7 1.7 0.0
 ROT: 0.0 0.0 0.0
 SCALE: 1.0 1.0 1.0
 ROTINC: 0.0 0.0 0.0
@@ -190,22 +180,11 @@ SHADER: TEXDIR
 }
 {
 TYPE: EXAMPLE
-NAME: DUCK
-POS: 10.0 10.0 10.0
-ROT: 0.0 0.0 0.0
-SCALE: 10.0 10.0 10.0
-ROTINC: 0.0 0.1 0.001
-MODEL: DUCK
-TEXTURE: DUCK
-SHADER: TEXDIR
-}
-{
-TYPE: EXAMPLE
 NAME: PLANET
 POS: -4.0 4.0 4.0
 ROT: 0.0 0.0 0.0 
 SCALE: 1.0 1.0 1.0
-ROTINC: 0.0 0.2 0.0
+ROTINC: 0.0 0.0 0.0
 MODEL: SPHERE
 TEXTURE: ROCK
 SHADER: TEXDIR
@@ -226,7 +205,7 @@ TYPE: EXAMPLE
 NAME: Ghost
 POS: 0.0 0.0 0.0
 ROT: 0.0 0.0 0.0
-SCALE: 0.2 0.5 0.2
+SCALE: 0.7 0.5 0.7
 ROTINC: 0.0 0.0 0.0
 MODEL: Ghost
 TEXTURE: Ghost
@@ -235,13 +214,13 @@ SHADER: TEXDIR
 {
 TYPE: EXAMPLE
 NAME: Crystal
-POS: 2.0 1.3 0.0
+POS: -3.0 4.0 3.0
 ROT: 0.0 0.0 0.0
 SCALE: 0.2 0.5 0.2
 ROTINC: 0.0 0.0 0.0
 MODEL: Crystal
 TEXTURE: Crystal
-SHADER: TEXDIR
+SHADER: emissive
 }
 {
 TYPE: EXAMPLE

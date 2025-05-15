@@ -157,6 +157,7 @@ int main()
 	g_texDirLightShader = setupShaders(string("Assets\\Shaders\\texture-directional.vert"), string("Assets\\Shaders\\texture-directional.frag"));
 	g_flatColourShader = setupShaders(string("Assets\\Shaders\\flatColour.vert"), string("Assets\\Shaders\\flatColour.frag"));
 
+
 	g_mainCamera = new ArcballCamera(0.0f, 0.0f, 1.98595f, 55.0f, 1.0f, 0.1f, 500.0f);
 
 	g_principleAxes = new CGPrincipleAxes();
@@ -172,10 +173,7 @@ int main()
 	if (g_planetMesh) {
 		g_planetMesh->addTexture(string("Assets\\Textures\\Hodges_G_MountainRock1.jpg"), FIF_JPEG);
 	}
-	g_DuckMesh = new AIMesh(string("Assets\\duck\\rubber_duck_toy_4k.obj"));
-	if (g_DuckMesh) {
-		g_DuckMesh->addTexture(string("Assets\\duck\\rubber_duck_toy_diff_4k.jpg"), FIF_JPEG);
-	}
+	
 	g_wallMesh = new AIMesh(string("Assets\\Wall\\cube.obj"));
 	if (g_wallMesh) {
 		g_wallMesh->addTexture(string("Assets\\Wall\\Dungeon_brick_wall.bmp"), FIF_BMP);
@@ -322,16 +320,7 @@ void renderScene()
 			g_planetMesh->render();
 
 		}
-		if (g_DuckMesh) {
-
-			// Setup transforms
-			Helper::SetUniformLocation(g_texDirLightShader, "modelMatrix", &pLocation);
-			mat4 modelTransform = glm::translate(identity<mat4>(), g_DuckPos) * eulerAngleY<float>(glm::radians<float>(g_DuckRotation));
-			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
-
-			g_DuckMesh->setupTextures();
-			g_DuckMesh->render();
-		}
+		
 		if (g_GhostMesh) {
 			// Enable blending for transparency
 			glEnable(GL_BLEND);
@@ -351,7 +340,7 @@ void renderScene()
 		if (g_CrystalMesh) {
 			if (g_CrystalGlow) {
 				// Use emissive shader for glowing effect
-				glUseProgram(g_emissiveShader);
+			/*/	glUseProgram(g_emissiveShader);
 
 				GLint pLocation;
 				Helper::SetUniformLocation(g_emissiveShader, "viewMatrix", &pLocation);
@@ -368,13 +357,16 @@ void renderScene()
 				Helper::SetUniformLocation(g_emissiveShader, "emissiveColor", &pLocation);
 				glUniform3fv(pLocation, 1, (GLfloat*)&emissiveColor);
 				Helper::SetUniformLocation(g_emissiveShader, "emissiveStrength", &pLocation);
-				glUniform1f(pLocation, emissiveStrength);
+				glUniform1f(pLocation, emissiveStrength);*/
 
+				Helper::SetUniformLocation(g_texDirLightShader, "modelMatrix", &pLocation);
+				mat4 modelTransform = glm::translate(identity<mat4>(), g_CrystalPos) * eulerAngleY<float>(glm::radians<float>(g_CrystalRotation));
+				glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
 				g_CrystalMesh->setupTextures();
 				g_CrystalMesh->render();
 			}
 			else {
-				// Use regular shader for non-glowing effect
+				/*// Use regular shader for non-glowing effect
 				glUseProgram(g_texDirLightShader);
 
 				GLint pLocation;
@@ -387,7 +379,7 @@ void renderScene()
 				glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
 
 				g_CrystalMesh->setupTextures();
-				g_CrystalMesh->render();
+				g_CrystalMesh->render();*/
 			}
 		}
 
